@@ -4,8 +4,8 @@ const path = require('path');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 
-module.exports = {
-  mode: 'production',
+module.exports = (env) => ({
+  mode: env,
 
   devServer: {
     contentBase: path.join(__dirname, 'dist'),
@@ -13,7 +13,7 @@ module.exports = {
     port: 9000,
   },
 
-  devtool: 'source-map',
+  devtool: env === 'production' ? 'source-map' : 'eval-source-map',
 
   resolve: {
     extensions: ['.js', '.jsx', '.ts', '.tsx'],
@@ -27,6 +27,9 @@ module.exports = {
         use: [
           {
             loader: 'ts-loader',
+            options: {
+              experimentalWatchApi: env === 'development',
+            },
           },
         ],
       },
@@ -74,4 +77,4 @@ module.exports = {
     }),
     new MiniCssExtractPlugin(),
   ],
-};
+});
