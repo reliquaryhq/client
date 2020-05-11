@@ -17,7 +17,7 @@ module.exports = (env) => ({
   devtool: env === 'production' ? 'source-map' : 'eval-source-map',
 
   resolve: {
-    extensions: ['.js', '.jsx', '.ts', '.tsx'],
+    extensions: ['.css', '.js', '.jsx', '.ts', '.tsx'],
   },
 
   module: {
@@ -43,7 +43,16 @@ module.exports = (env) => ({
 
       {
         test: /\.css$/,
+        exclude: /\.module\.css$/,
         use: [MiniCssExtractPlugin.loader, 'css-loader'],
+      },
+
+      {
+        test: /\.module\.css$/,
+        use: [
+          MiniCssExtractPlugin.loader,
+          { loader: 'css-loader', options: { modules: true } },
+        ],
       },
 
       {
