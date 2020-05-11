@@ -11,6 +11,7 @@ module.exports = (env) => ({
     contentBase: path.join(__dirname, 'dist'),
     compress: true,
     port: 9000,
+    allowedHosts: ['.reliquaryhq.com'],
   },
 
   devtool: env === 'production' ? 'source-map' : 'eval-source-map',
