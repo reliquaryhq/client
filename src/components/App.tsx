@@ -1,13 +1,14 @@
-import React, { Fragment } from 'react';
-import { Button } from '@blueprintjs/core';
+import React from 'react';
+import { Provider } from 'react-redux';
+import store from '../store';
+import Screen from './Screen';
 
 class App extends React.Component<{}, {}> {
   render() {
     return (
-      <Fragment>
-        <h1>Hello from React!</h1>
-        <Button>Button</Button>
-      </Fragment>
+      <Provider store={store}>
+        <Screen />
+      </Provider>
     );
   }
 }
