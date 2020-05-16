@@ -1,4 +1,5 @@
 import { NewUser, User, Session } from '@reliquaryhq/types';
+import { getJson, handleError } from './util/http';
 
 const API_URL = `http://local.reliquaryhq.com:3000`;
 
@@ -7,41 +8,45 @@ const DEFAULT_OPTIONS: RequestInit = {
 };
 
 const session = {
-  createSession: async (name: string, password: string): Promise<Session> =>
-    (
-      await fetch(`${API_URL}/session`, {
-        ...DEFAULT_OPTIONS,
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ name, password }),
-      })
-    ).json(),
+  createSession: (name: string, password: string): Promise<Session> =>
+    fetch(`${API_URL}/session`, {
+      ...DEFAULT_OPTIONS,
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ name, password }),
+    })
+      .then(handleError)
+      .then(getJson),
 
-  deleteSession: async (): Promise<void> =>
-    (
-      await fetch(`${API_URL}/session`, {
-        ...DEFAULT_OPTIONS,
-        method: 'DELETE',
-      })
-    ).json(),
+  deleteSession: (): Promise<void> =>
+    fetch(`${API_URL}/session`, {
+      ...DEFAULT_OPTIONS,
+      method: 'DELETE',
+    })
+      .then(handleError)
+      .then(getJson),
 
-  getSession: async (): Promise<Session> =>
-    (await fetch(`${API_URL}/session`, DEFAULT_OPTIONS)).json(),
+  getSession: (): Promise<Session> =>
+    fetch(`${API_URL}/session`, DEFAULT_OPTIONS)
+      .then(handleError)
+      .then(getJson),
 };
 
 const user = {
-  createUser: async (newUser: NewUser): Promise<User> =>
-    (
-      await fetch(`${API_URL}/user`, {
-        ...DEFAULT_OPTIONS,
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify(newUser),
-      })
-    ).json(),
+  createUser: (newUser: NewUser): Promise<User> =>
+    fetch(`${API_URL}/user`, {
+      ...DEFAULT_OPTIONS,
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify(newUser),
+    })
+      .then(handleError)
+      .then(getJson),
 
-  getUser: async (userId: number): Promise<User> =>
-    (await fetch(`${API_URL}/user/${userId}`, DEFAULT_OPTIONS)).json(),
+  getUser: (userId: number): Promise<User> =>
+    fetch(`${API_URL}/user/${userId}`, DEFAULT_OPTIONS)
+      .then(handleError)
+      .then(getJson),
 };
 
 export default {
