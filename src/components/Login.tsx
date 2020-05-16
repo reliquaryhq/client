@@ -73,56 +73,58 @@ class Login extends React.Component<Props, State> {
     );
 
     return (
-      <div className={styles.login}>
-        <form onSubmit={this.handleSubmit}>
-          <Card elevation={Elevation.TWO}>
-            <h4 className={Classes.HEADING}>Log In</h4>
+      <div className={styles.wrapper}>
+        <div className={styles.login}>
+          <form onSubmit={this.handleSubmit}>
+            <Card elevation={Elevation.TWO}>
+              <h4 className={Classes.HEADING}>Log In</h4>
 
-            <FormGroup
-              label="Name"
-              labelFor="login-name"
-              labelInfo="(required)"
-            >
-              <InputGroup
-                id="login-name"
-                autoComplete="username"
-                placeholder="Enter your name..."
-                value={name}
-                onChange={(event: React.FormEvent<HTMLInputElement>) =>
-                  this.setState({ name: event.currentTarget.value })
-                }
-              />
-            </FormGroup>
-
-            <FormGroup
-              label="Password"
-              labelFor="login-password"
-              labelInfo="(required)"
-            >
-              <InputGroup
-                id="login-password"
-                autoComplete="current-password"
-                placeholder="Enter your password..."
-                rightElement={lockButton}
-                type={showPassword ? 'text' : 'password'}
-                value={password}
-                onChange={(event: React.FormEvent<HTMLInputElement>) =>
-                  this.setState({ password: event.currentTarget.value })
-                }
-              />
-            </FormGroup>
-
-            <div className={styles.actions}>
-              <Button
-                type="submit"
-                disabled={isSessionCreating}
-                intent={Intent.PRIMARY}
+              <FormGroup
+                label="Name"
+                labelFor="login-name"
+                labelInfo="(required)"
               >
-                Log In
-              </Button>
-            </div>
-          </Card>
-        </form>
+                <InputGroup
+                  id="login-name"
+                  autoComplete="username"
+                  placeholder="Enter your name..."
+                  value={name}
+                  onChange={(event: React.FormEvent<HTMLInputElement>) =>
+                    this.setState({ name: event.currentTarget.value })
+                  }
+                />
+              </FormGroup>
+
+              <FormGroup
+                label="Password"
+                labelFor="login-password"
+                labelInfo="(required)"
+              >
+                <InputGroup
+                  id="login-password"
+                  autoComplete="current-password"
+                  placeholder="Enter your password..."
+                  rightElement={lockButton}
+                  type={showPassword ? 'text' : 'password'}
+                  value={password}
+                  onChange={(event: React.FormEvent<HTMLInputElement>) =>
+                    this.setState({ password: event.currentTarget.value })
+                  }
+                />
+              </FormGroup>
+
+              <div className={styles.actions}>
+                <Button
+                  type="submit"
+                  disabled={isSessionCreating}
+                  intent={Intent.PRIMARY}
+                >
+                  Log In
+                </Button>
+              </div>
+            </Card>
+          </form>
+        </div>
       </div>
     );
   }

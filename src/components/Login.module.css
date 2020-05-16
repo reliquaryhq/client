@@ -1,6 +1,11 @@
+.wrapper {
+  display: flex;
+  align-items: center;
+  min-height: 100vh;
+}
+
 .login {
   width: 400px;
-  margin: 200px auto;
 }
 
 .actions {
