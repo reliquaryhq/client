@@ -1,14 +1,13 @@
 import React from 'react';
-import { Provider } from 'react-redux';
-import store from '../store';
 import Screen from './Screen';
+import Session from './Session';
 
 class App extends React.Component<{}, {}> {
   render() {
     return (
-      <Provider store={store}>
+      <Session>
         <Screen />
-      </Provider>
+      </Session>
     );
   }
 }

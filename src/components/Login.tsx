@@ -1,5 +1,4 @@
 import React from 'react';
-import { ConnectedProps, connect } from 'react-redux';
 import {
   Button,
   InputGroup,
@@ -10,26 +9,17 @@ import {
   Classes,
   FormGroup,
 } from '@blueprintjs/core';
-import { RootState } from '../store/root';
-import { createSession } from '../store/session';
+import api from '../api';
 import styles from './Login.module.css';
+import { SessionProps, withSession } from './Session';
 
-const mapState = (state: RootState) => ({
-  session: state.session,
-});
-
-const mapDispatch = {
-  createSession,
-};
-
-const connector = connect(mapState, mapDispatch);
-
-type Props = ConnectedProps<typeof connector> & {};
+type Props = SessionProps & {};
 
 type State = {
   name: string;
   password: string;
   showPassword: boolean;
+  isSessionCreating: boolean;
 };
 
 class Login extends React.Component<Props, State> {
@@ -40,16 +30,24 @@ class Login extends React.Component<Props, State> {
       name: '',
       password: '',
       showPassword: false,
+      isSessionCreating: false,
     };
   }
 
-  handleSubmit = (event: React.FormEvent) => {
+  handleSubmit = async (event: React.FormEvent) => {
     event.preventDefault();
 
-    const { createSession } = this.props;
+    const { refreshSession } = this.props;
     const { name, password } = this.state;
 
-    createSession(name, password);
+    this.setState({ isSessionCreating: true });
+
+    try {
+      await api.session.createSession(name, password);
+      await refreshSession();
+    } finally {
+      this.setState({ isSessionCreating: false });
+    }
   };
 
   handleShowPassword = () => {
@@ -61,8 +59,7 @@ class Login extends React.Component<Props, State> {
   };
 
   render() {
-    const { session } = this.props;
-    const { name, password, showPassword } = this.state;
+    const { name, password, showPassword, isSessionCreating } = this.state;
 
     const lockButton = (
       <Tooltip content={`${showPassword ? 'Hide' : 'Show'} Password`}>
@@ -118,7 +115,7 @@ class Login extends React.Component<Props, State> {
             <div className={styles.actions}>
               <Button
                 type="submit"
-                disabled={session.isCreateSessionPending}
+                disabled={isSessionCreating}
                 intent={Intent.PRIMARY}
               >
                 Log In
@@ -131,4 +128,4 @@ class Login extends React.Component<Props, State> {
   }
 }
 
-export default connector(Login);
+export default withSession(Login);

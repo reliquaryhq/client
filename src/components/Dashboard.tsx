@@ -1,25 +1,20 @@
 import React from 'react';
-import { ConnectedProps, connect } from 'react-redux';
 import { Button } from '@blueprintjs/core';
-import { deleteSession } from '../store/session';
+import { withSession, SessionProps } from './Session';
+import api from '../api';
 
-const mapDispatch = {
-  deleteSession,
-};
-
-const connector = connect(null, mapDispatch);
-
-type Props = ConnectedProps<typeof connector> & {};
+type Props = SessionProps & {};
 
 type State = {};
 
 class Dashboard extends React.Component<Props, State> {
-  handleLogout = (event: React.FormEvent) => {
+  handleLogout = async (event: React.FormEvent) => {
     event.preventDefault();
 
-    const { deleteSession } = this.props;
+    const { refreshSession } = this.props;
 
-    deleteSession();
+    await api.session.deleteSession();
+    await refreshSession();
   };
 
   render() {
@@ -31,4 +26,4 @@ class Dashboard extends React.Component<Props, State> {
   }
 }
 
-export default connector(Dashboard);
+export default withSession(Dashboard);
