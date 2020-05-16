@@ -19,7 +19,7 @@ type State = {
   name: string;
   password: string;
   showPassword: boolean;
-  isSessionCreating: boolean;
+  isCreatingSession: boolean;
 };
 
 class Login extends React.Component<Props, State> {
@@ -30,7 +30,7 @@ class Login extends React.Component<Props, State> {
       name: '',
       password: '',
       showPassword: false,
-      isSessionCreating: false,
+      isCreatingSession: false,
     };
   }
 
@@ -40,13 +40,13 @@ class Login extends React.Component<Props, State> {
     const { refreshSession } = this.props;
     const { name, password } = this.state;
 
-    this.setState({ isSessionCreating: true });
+    this.setState({ isCreatingSession: true });
 
     try {
       await api.session.createSession(name, password);
       await refreshSession();
     } finally {
-      this.setState({ isSessionCreating: false });
+      this.setState({ isCreatingSession: false });
     }
   };
 
@@ -59,7 +59,7 @@ class Login extends React.Component<Props, State> {
   };
 
   render() {
-    const { name, password, showPassword, isSessionCreating } = this.state;
+    const { name, password, showPassword, isCreatingSession } = this.state;
 
     const lockButton = (
       <Tooltip content={`${showPassword ? 'Hide' : 'Show'} Password`}>
@@ -116,7 +116,7 @@ class Login extends React.Component<Props, State> {
               <div className={styles.actions}>
                 <Button
                   type="submit"
-                  disabled={isSessionCreating}
+                  disabled={isCreatingSession}
                   intent={Intent.PRIMARY}
                 >
                   Log In
