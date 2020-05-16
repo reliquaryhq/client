@@ -10,6 +10,7 @@ import {
   FormGroup,
 } from '@blueprintjs/core';
 import api from '../api';
+import toaster from '../toaster';
 import styles from './Login.module.css';
 import { SessionProps, withSession } from './Session';
 
@@ -45,6 +46,11 @@ class Login extends React.Component<Props, State> {
     try {
       await api.session.createSession(name, password);
       await refreshSession();
+    } catch (error) {
+      toaster.show({
+        message: `Error: ${error.message}`,
+        intent: Intent.DANGER,
+      });
     } finally {
       this.setState({ isCreatingSession: false });
     }
