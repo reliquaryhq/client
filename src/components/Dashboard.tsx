@@ -1,7 +1,7 @@
-import React from 'react';
-import { Button } from '@blueprintjs/core';
+import React, { Fragment } from 'react';
 import { withSession, SessionProps } from './Session';
 import api from '../api';
+import AppNav from './AppNav';
 
 type Props = SessionProps & {};
 
@@ -19,9 +19,9 @@ class Dashboard extends React.Component<Props, State> {
 
   render() {
     return (
-      <Button type="button" onClick={this.handleLogout}>
-        Logout
-      </Button>
+      <Fragment>
+        <AppNav onLogout={this.handleLogout} />
+      </Fragment>
     );
   }
 }
