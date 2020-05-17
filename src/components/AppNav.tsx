@@ -1,5 +1,6 @@
 import React from 'react';
 import { Alignment, Button, Navbar } from '@blueprintjs/core';
+import LinkButton from './LinkButton';
 
 type Props = {
   onLogout: (event: React.FormEvent) => Promise<void>;
@@ -16,7 +17,7 @@ class AppNav extends React.Component<Props, {}> {
 
           <Navbar.Divider />
 
-          <Button className="bp3-minimal" icon="home" text="Home" />
+          <LinkButton className="bp3-minimal" icon="home" text="Home" to="/" />
         </Navbar.Group>
 
         <Navbar.Group align={Alignment.RIGHT}>
