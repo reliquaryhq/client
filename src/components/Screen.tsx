@@ -32,11 +32,13 @@ class Screen extends React.Component<Props, State> {
           <Fragment>
             <AppNav onLogout={this.handleLogout} />
 
-            <Switch>
-              <Route path="/">
-                <Home />
-              </Route>
-            </Switch>
+            <div className={styles.content}>
+              <Switch>
+                <Route path="/" exact>
+                  <Home />
+                </Route>
+              </Switch>
+            </div>
           </Fragment>
         )}
       </div>
