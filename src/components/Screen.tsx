@@ -2,7 +2,7 @@ import React, { Fragment } from 'react';
 import { Route, Switch } from 'react-router-dom';
 import api from '../api';
 import AppNav from './AppNav';
-import Home from './Home';
+import HomeScreen from './HomeScreen';
 import Login from './Login';
 import { withSession, SessionProps } from './Session';
 import SourceScreen from './SourceScreen';
@@ -36,7 +36,7 @@ class Screen extends React.Component<Props, State> {
             <div className={styles.content}>
               <Switch>
                 <Route path="/" exact>
-                  <Home />
+                  <HomeScreen />
                 </Route>
 
                 <Route path="/source">

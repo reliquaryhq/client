@@ -4,10 +4,10 @@ type Props = {};
 
 type State = {};
 
-class Home extends React.Component<Props, State> {
+class HomeScreen extends React.Component<Props, State> {
   render() {
     return <Fragment>Home</Fragment>;
   }
 }
 
-export default Home;
+export default HomeScreen;
