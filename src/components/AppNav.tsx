@@ -18,6 +18,12 @@ class AppNav extends React.Component<Props, {}> {
           <Navbar.Divider />
 
           <LinkButton className="bp3-minimal" icon="home" text="Home" to="/" />
+          <LinkButton
+            className="bp3-minimal"
+            icon="projects"
+            text="Sources"
+            to="/source"
+          />
         </Navbar.Group>
 
         <Navbar.Group align={Alignment.RIGHT}>

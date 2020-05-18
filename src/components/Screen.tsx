@@ -5,6 +5,7 @@ import AppNav from './AppNav';
 import Home from './Home';
 import Login from './Login';
 import { withSession, SessionProps } from './Session';
+import SourceScreen from './SourceScreen';
 import styles from './Screen.module.css';
 
 type Props = SessionProps & {};
@@ -36,6 +37,10 @@ class Screen extends React.Component<Props, State> {
               <Switch>
                 <Route path="/" exact>
                   <Home />
+                </Route>
+
+                <Route path="/source">
+                  <SourceScreen />
                 </Route>
               </Switch>
             </div>
