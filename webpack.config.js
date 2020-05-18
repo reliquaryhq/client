@@ -12,6 +12,7 @@ module.exports = (env) => ({
     compress: true,
     port: 9000,
     allowedHosts: ['.reliquaryhq.com'],
+    historyApiFallback: true,
   },
 
   devtool: env === 'production' ? 'source-map' : 'eval-source-map',
