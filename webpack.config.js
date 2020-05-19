@@ -18,7 +18,7 @@ module.exports = (env) => ({
   devtool: env === 'production' ? 'source-map' : 'eval-source-map',
 
   resolve: {
-    extensions: ['.css', '.js', '.jsx', '.ts', '.tsx'],
+    extensions: ['.css', '.js', '.jsx', '.scss', '.ts', '.tsx'],
   },
 
   module: {
@@ -60,6 +60,28 @@ module.exports = (env) => ({
               },
             },
           },
+        ],
+      },
+
+      {
+        test: /\.scss$/,
+        exclude: /\.module\.scss$/,
+        use: [MiniCssExtractPlugin.loader, 'css-loader', 'sass-loader'],
+      },
+
+      {
+        test: /\.module\.scss$/,
+        use: [
+          MiniCssExtractPlugin.loader,
+          {
+            loader: 'css-loader',
+            options: {
+              modules: {
+                localIdentName: '[path][name]__[local]--[hash:base64:5]',
+              },
+            },
+          },
+          'sass-loader',
         ],
       },
 
